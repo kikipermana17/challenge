@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Vue</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand&display=swap">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <style>
+        body {
+            margin: 5%;
+            font-family: 'Quicksand', sans-serif;
+            /* text-align: center; */
+        }
+
+        .active {
+            background: green;
+            border: 0;
+            padding: 5px
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <header>
+            <!-- <img src="img/logo.png" width="80"> -->
+            <h1 v-text="title"></h1>
+            <img v-bind:src="gambar" width="200">
+            <h1 v-once>{{namaLengkap}}</h1>
+            <h4>Progresive javascript framework</h4>
+            <h4>{{isactive ? 'success' : 'danger'}}</h4>
+            <label>Nama Lengkap : <p>{{namaDepan + namaBelakang}}</p> </label>
+            <label>Tanggal Lahir : <p>{{ttl}}</p></label>
+            <label>Agama : <p>{{agama}}</p></label>
+            <label>Hobi : <p><li v-for="k in hobi">{{ k }}</li></p></label>
+
+            <!-- <p>{{totalJumlah}}</p> -->
+            <br>
+            <button v-bind:class="{active: menu === 'home'}" v-on:click="menu = 'home' ">Home</button>
+            <button v-bind:class="{active: menu === 'about'}" v-on:click="menu = 'about' ">About</button>
+            <button v-bind:class="{active: menu === 'blog'}" v-on:click="menu = 'blog' ">Blog</button>
+
+        </header>
+    </div>
+
+    <footer id="footer">
+        <p>Copyright; Kiki Permana</p>
+    </footer>
+
+    <div id="compenent-demo">
+        <button-counter></button-counter>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                title: 'Profile',
+                isactive: true,
+                qty: 2,
+                namaDepan: 'Kiki',
+                namaBelakang: 'Permana',
+                gambar: 'img/profile.png',
+                menu: 'home',
+                ttl: 'Bandung 17 September',
+                agama: 'islam',
+                hobi: ['Futsal', 'Main Game', 'Berenang']
+            },
+            methods: {
+                getname: function () {
+                    return 'Hello, ' + this.title
+                },
+                // ubahNama: function(namaBaru){
+                //     this.title = namaBaru
+                //     return this.getname()
+                // }
+            },
+            computed: {
+                // totalJumlah: function () {
+                //     return this.qty * 15000
+                // },
+                namaLengkap: function () {
+                    return 'Hello, ' + this.namaDepan + ' ' + this.namaBelakang
+                }
+
+            },
+        })
+
+    </script>
+</body>
+
+</html>

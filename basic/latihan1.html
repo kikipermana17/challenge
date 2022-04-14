@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Vue</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand&display=swap">
+
+    <style>
+        body {
+            margin: 5%;
+            font-family: 'Quicksand', sans-serif;
+            /* text-align: center; */
+        }
+
+        .active {
+            background: green;
+            border: 0;
+            padding: 5px
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <header-component></header-component>
+
+        <!-- <nav>
+            <router-link to="/too">Go to Home</router-link>
+            <router-link to="/boo">Go to About</router-link>
+            <router-link to="/foo">Go to Hobi</router-link>
+
+        </nav> -->
+
+        <main>
+            <content-component v-bind:items="hobi" v-on:submithobi="submithobi" v-on:hapushobi="hapushobi">
+            </content-component>
+        </main>
+
+
+
+        <footer-component></footer-component>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <!-- <script src="https://unpkg.com/vue-router@4.0.5/dist/vue-router.global.js"></script> -->
+
+
+    <script>
+        // const home = {
+        //     template: '<div>Home</div>'
+        // }
+
+        // const about = {
+        //     template: '<div>About</div>'
+        // }
+
+        // const hobi = {
+        //     props: ['items'],
+        //     template: `
+        //         <div>
+        //     <h4>Tambah Hobi</h4>
+        //     <p><input type="text" placeholder="Nama Hobi" v-on:keyup.enter="$emit('submithobi', $event)"></p>
+        //     <hr>
+        //     <h4>Daftar Hobi ({{items.length}})</h4>
+        //     <template v-if="items.length">
+        //         <ul>
+        //             <li v-for="(item, index) of items">
+        //                 {{ index+1 }} - {{ item }}
+        //                 <a href="" v-on:click.prevent="$emit('hapushobi', index)">hapus</a>
+        //             </li>
+                    
+        //         </ul>
+        //     </template>
+
+        //     <li v-else>Hobi Tidak Tersedia</li>
+        //     </div>
+        //     `,
+        //     data: function () {
+        //         return {
+        //         }
+        //     },
+        //     methods: {
+        //     }
+        // }
+
+
+
+        Vue.component('header-component', {
+            template: `
+            <header>
+            <!-- <img src="img/logo.png" width="80"> -->
+            <h1 v-text="title"></h1>
+            <img src="img/vue.png" width="300">
+            <h4>Progresive javascript framework</h4>
+        </header>
+        `,
+            data: function () {
+                return {
+                    title: 'Apa itu Vue js?',
+                }
+            }
+        }),
+
+        Vue.component('footer-component', {
+                template: `
+            <footer id="footer">
+                <p>Copyright; Kiki Permana</p>
+            </footer>
+            `
+            })
+
+        Vue.component('content-component', {
+            props: ['items'],
+            template: `
+                <div>
+            <h4>Tambah Hobi</h4>
+            <p><input type="text" placeholder="Nama Hobi" v-on:keyup.enter="$emit('submithobi', $event)"></p>
+            <hr>
+            <h4>Daftar Hobi ({{items.length}})</h4>
+            <template v-if="items.length">
+                <ul>
+                    <li v-for="(item, index) of items">
+                        {{ index+1 }} - {{ item }}
+                        <a href="" v-on:click.prevent="$emit('hapushobi', index)">hapus</a>
+                    </li>
+                    
+                </ul>
+            </template>
+
+            <li v-else>Hobi Tidak Tersedia</li>
+            </div>
+            `,
+            data: function () {
+                return {
+                }
+            },
+            methods: {
+            }
+        })
+
+
+        // const routes = [
+        //     { path: '/', component: Home },
+        //     { path: '/about', component: About },
+        //     { path: '/hobi', component: Hobi }
+        // ]
+
+        // const router = VueRouter.createRouter({
+        //     history: VueRouter.createWebHashHistory(),
+        //     routes,
+        // })
+
+        const app = new Vue({
+            el: '#app',
+            // router,
+            // component: {
+            //     'home' : home
+            // },
+            data: {
+                hobi: ['Futsal', 'Main Game', 'Berenang'],
+            },
+            methods: {
+                hapushobi: function (index) {
+                    this.hobi.splice(index, 1)
+                },
+                submithobi: function (event) {
+                    var text = event.target.value
+                    this.hobi.push(text)
+                }
+            },
+            computed: {
+
+            },
+        })
+
+    </script>
+</body>
+
+</html>
